@@ -1,7 +1,12 @@
 import "./App.css";
-
+import Register from "./Register";
 function App() {
-  return <div>React Form</div>;
+  return (
+    <main className="App">
+      React Form
+      <Register />
+    </main>
+  );
 }
 
 export default App;
