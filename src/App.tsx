@@ -1,12 +1,13 @@
+import { ReactElement } from "react";
 import "./App.css";
 import Register from "./Register";
-function App() {
+const App: React.FC = (): ReactElement => {
   return (
     <main className="App">
       React Form
       <Register />
     </main>
   );
-}
+};
 
 export default App;
