@@ -1,4 +1,11 @@
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  ReactElement,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import "./App.css";
 
@@ -6,9 +13,10 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register: React.FC = (): ReactElement => {
-  const userRef = useRef<HTMLInputElement>(null);
+  const userRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
-  const errRef = useRef<HTMLParagraphElement>(null);
+  const errRef: RefObject<HTMLParagraphElement> =
+    useRef<HTMLParagraphElement>(null);
 
   const [user, setUser] = useState<string>("");
 
@@ -26,19 +34,19 @@ const Register: React.FC = (): ReactElement => {
   const [errMsg, setErrMsg] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
 
-  useEffect(() => {
-    userRef.current.focus();
+  useEffect((): void => {
+    // userRef.current.focus();
   }, []);
 
   // useeffect for User
-  useEffect(() => {
+  useEffect((): void => {
     const result: boolean = USER_REGEX.test(user);
     console.log(result);
     console.log(user);
     setValidName(result);
   }, [user]);
 
-  useEffect(() => {
+  useEffect((): void => {
     const result: boolean = PWD_REGEX.test(pwd);
     console.log(result);
     console.log(pwd);
@@ -47,7 +55,7 @@ const Register: React.FC = (): ReactElement => {
     setValidPwd(match);
   }, [pwd, matchPwd]);
 
-  useEffect(() => {
+  useEffect((): void => {
     setErrMsg("");
   }, [user, pwd, matchPwd]);
 
@@ -69,10 +77,12 @@ const Register: React.FC = (): ReactElement => {
           ref={userRef}
           autoComplete="off"
           aria-invalid={validName ? "false" : "true"}
-          onChange={(e) => setUser(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+            setUser(e.target.value)
+          }
           required
-          onFocus={() => setUserFocus(true)}
-          onBlur={() => setUserFocus(false)}
+          onFocus={(): void => setUserFocus(true)}
+          onBlur={(): void => setUserFocus(false)}
         />
       </form>
     </section>
