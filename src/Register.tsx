@@ -7,6 +7,8 @@ import React, {
   useState,
 } from "react";
 
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -35,7 +37,7 @@ const Register: React.FC = (): ReactElement => {
   const [success, setSuccess] = useState<boolean>(false);
 
   useEffect((): void => {
-    // userRef.current.focus();
+    userRef.current.focus();
   }, []);
 
   // useeffect for User
@@ -68,15 +70,18 @@ const Register: React.FC = (): ReactElement => {
       >
         {errMsg}
       </p>
+      <h1>Register</h1>
 
       <form>
         <label htmlFor="username">UserName:</label>
+
         <input
           type="text"
           id="username"
           ref={userRef}
           autoComplete="off"
           aria-invalid={validName ? "false" : "true"}
+          aria-describedby="uidnote"
           onChange={(e: ChangeEvent<HTMLInputElement>): void =>
             setUser(e.target.value)
           }
@@ -84,6 +89,17 @@ const Register: React.FC = (): ReactElement => {
           onFocus={(): void => setUserFocus(true)}
           onBlur={(): void => setUserFocus(false)}
         />
+        <p
+          id="uidnote"
+          className={
+            userFocus && user && !validName ? "instructions" : "offscreen"
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          4 to 24 character <br />
+          Must begin with letter. <br />
+          numbers, underscrores, hyphens allowed.
+        </p>
       </form>
     </section>
   );
